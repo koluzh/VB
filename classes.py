@@ -8,6 +8,7 @@ class Bet:
         self.time_of_match = time
         self.parent = None
         self.hedge = None
+        self.value = None
 
     def equals(self, other_bet: 'Bet'):
         if self.team_name == other_bet.team_name and self.time_of_match == other_bet.time_of_match:
@@ -40,6 +41,28 @@ class Arbitrage:
         self.bets = [offer1.bet1, offer1.bet2, offer2.bet1, offer2.bet2]
         self.max_profit = None
         self.max_profit_bet = self.get_max_profit()
+        self.hedge_bet = self.max_profit_bet.hedge
+        self.max_profit_bet.value = self.max_profit / self.max_profit_bet.coef_value
+        self.max_value = None
+        self.max_value_bet = self.get_max_value()
+
+    def get_value(self, bet: Bet):
+        profit = self.get_profit(winner=bet)
+        value = profit/bet.coef_value
+        return value
+
+    def get_max_value(self):
+        max_value = self.get_value(bet=self.bets[0])
+        max_value_bet = self.bets[0]
+
+        for bet_i in self.bets:
+            value = self.get_value(winner=bet_i)
+            if value > max_value:
+                max_value_bet = bet_i
+                max_value = value
+
+        self.max_value = max_value
+        return max_value_bet
 
     def get_max_profit(self):
         max_profit = self.get_profit(winner=self.bets[0])
@@ -86,5 +109,16 @@ class Arbitrage:
         else:
             Exception('Invalid offers')
 
-    def info(self):
-        pass
+    def get_info(self, bet_amount: float = None):
+        if bet_amount is None:
+            bet_amount = 100
+
+        profit = self.get_profit(100)
+        lose = bet_amount / self.max_profit_bet.hedge.coef_value
+        print('team 1: ', self.max_profit_bet.team_name, '\nsite: ', self.max_profit_bet.link, '\nbet: ', bet_amount)
+        print('coef: ', self.max_profit_bet.coef_value)
+        print('value: ', profit/self.max_profit_bet.coef_value)
+        print('\nteam 2: ', self.max_profit_bet.hedge.team_name, '\nsite: ', self.max_profit_bet.hedge.link,
+              '\nbet: ', lose)
+        print('coef: ', self.max_profit_bet.hedge.coef_value)
+        print('\nprofit: ', profit)

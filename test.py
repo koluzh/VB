@@ -3,20 +3,20 @@ import time
 import classes
 
 # links
-leon = 'csgopositive'
-csgo = 'leon'
+leon = 'leon'
+csgo = 'csgo'
 
 # teams
-team1 = 'ftw'
-team2 = 'forze'
+team1 = 'ludus'
+team2 = 'kum'
 
 # leon
-coef_1_1 = 2.31
-coef_1_2 = 1.57
+coef_1_1 = 1.45
+coef_1_2 = 2.63
 
 # csgo
-coef_2_1 = 2.041
-coef_2_2 = 1.68
+coef_2_1 = 1.46
+coef_2_2 = 2.52
 
 # get_time
 t0 = time.time()
@@ -34,7 +34,4 @@ offer2 = classes.Offer(bet3, bet4)
 
 # arbitrage
 arb = classes.Arbitrage(offer1, offer2, t0)
-money = arb.get_profit(200)
-print(money)
-print(arb.max_profit_bet.coef_value)
-print(arb.max_profit_bet.hedge.coef_value)
+arb.get_info()
