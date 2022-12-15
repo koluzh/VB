@@ -11,12 +11,12 @@ team1 = 'ftw'
 team2 = 'forze'
 
 # leon
-coef_1_1 = 3.01
-coef_1_2 = 1.36
+coef_1_1 = 2.31
+coef_1_2 = 1.57
 
 # csgo
-coef_2_1 = 2.512
-coef_2_2 = 1.441
+coef_2_1 = 2.041
+coef_2_2 = 1.68
 
 # get_time
 t0 = time.time()
@@ -34,7 +34,7 @@ offer2 = classes.Offer(bet3, bet4)
 
 # arbitrage
 arb = classes.Arbitrage(offer1, offer2, t0)
-money = arb.max_profit
+money = arb.get_profit(200)
 print(money)
 print(arb.max_profit_bet.coef_value)
 print(arb.max_profit_bet.hedge.coef_value)

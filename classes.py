@@ -85,3 +85,6 @@ class Arbitrage:
             return self.offer1
         else:
             Exception('Invalid offers')
+
+    def info(self):
+        pass
