@@ -46,8 +46,13 @@ class Arbitrage:
         self.max_value = None
         self.max_value_bet = self.get_max_value()
 
-    def get_value(self, bet: Bet):
-        profit = self.get_profit(winner=bet)
+    def get_value(self, bet_amount: float = None, bet: Bet = None):
+        if bet_amount is None:
+            bet_amount = 100
+        if bet is None:
+            bet = self.max_value_bet
+
+        profit = self.get_profit(bet_amount, bet)
         value = profit/bet.coef_value
         return value
 
@@ -56,7 +61,7 @@ class Arbitrage:
         max_value_bet = self.bets[0]
 
         for bet_i in self.bets:
-            value = self.get_value(winner=bet_i)
+            value = self.get_value(bet=bet_i)
             if value > max_value:
                 max_value_bet = bet_i
                 max_value = value
@@ -109,7 +114,7 @@ class Arbitrage:
         else:
             Exception('Invalid offers')
 
-    def get_info(self, bet_amount: float = None):
+    def get_info_profit(self, bet_amount: float = None):
         if bet_amount is None:
             bet_amount = 100
 
@@ -122,3 +127,17 @@ class Arbitrage:
               '\nbet: ', lose)
         print('coef: ', self.max_profit_bet.hedge.coef_value)
         print('\nprofit: ', profit)
+
+    def get_info_value(self, bet_amount: float = None):
+        if bet_amount is None:
+            bet_amount = 100
+
+        value = self.get_value()
+        lose = bet_amount / self.max_value_bet.hedge.coef_value
+        print('team 1: ', self.max_value_bet.team_name, '\nsite: ', self.max_value_bet.link, '\nbet: ', bet_amount)
+        print('coef: ', self.max_value_bet.coef_value)
+        print('value: ', self.max_value)
+        print('\nteam 2: ', self.max_value_bet.hedge.team_name, '\nsite: ', self.max_value_bet.hedge.link,
+              '\nbet: ', lose)
+        print('coef: ', self.max_value_bet.hedge.coef_value)
+        print('\nprofit: ', self.max_profit)
