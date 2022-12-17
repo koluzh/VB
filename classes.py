@@ -18,7 +18,8 @@ class Bet:
 
 
 class Offer:
-    def __init__(self, bet1: Bet, bet2: Bet):
+    def __init__(self, bet1: Bet, bet2: Bet, name: str):
+        self.name = name
         self.bet1 = bet1
         self.set_parent(bet1)
         self.bet2 = bet2
@@ -33,7 +34,7 @@ class Offer:
         child.parent = self
 
 
-class Arbitrage:
+class Fork:
     def __init__(self, offer1: Offer, offer2: Offer, time: time.struct_time):
         self.time = time
         self.offer1 = offer1
@@ -118,7 +119,7 @@ class Arbitrage:
         if bet_amount is None:
             bet_amount = 100
 
-        profit = self.get_profit(100)
+        profit = self.get_profit(bet_amount)
         lose = bet_amount / self.max_profit_bet.hedge.coef_value
         print('team 1: ', self.max_profit_bet.team_name, '\nsite: ', self.max_profit_bet.link, '\nbet: ', bet_amount)
         print('coef: ', self.max_profit_bet.coef_value)
@@ -132,7 +133,7 @@ class Arbitrage:
         if bet_amount is None:
             bet_amount = 100
 
-        value = self.get_value()
+        value = self.get_value(bet_amount)
         lose = bet_amount / self.max_value_bet.hedge.coef_value
         print('team 1: ', self.max_value_bet.team_name, '\nsite: ', self.max_value_bet.link, '\nbet: ', bet_amount)
         print('coef: ', self.max_value_bet.coef_value)
@@ -141,3 +142,31 @@ class Arbitrage:
               '\nbet: ', lose)
         print('coef: ', self.max_value_bet.hedge.coef_value)
         print('\nprofit: ', self.max_profit)
+
+
+class Query:
+    def __init__(self, key: str):
+        self.key = key
+        self.capacity = len(key)
+        self.data = list(str())
+        self.size = 0
+
+    def push_back(self, c: str):
+        if len(c) != 1:
+            Exception('incorrect push_back length')
+            return
+        if self.size < self.capacity:
+            self.data.append(c)
+            self.size = self.size + 1
+        else:
+            self.data.pop(0)
+            self.data.append(c)
+
+    def satisfied(self):
+        if self.key == ''.join(self.data):
+            return True
+        else:
+            return False
+
+
+
