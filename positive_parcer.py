@@ -17,6 +17,7 @@ headers = {
   'User-agent': 'Edge 108.0.1462 (WebKit 537.36)'
 }
 
+
 def get_offers_from_positive():
     r = requests.get(link4, headers=headers)
     with open('test.html', 'w', encoding=utf) as output_file:
@@ -25,16 +26,21 @@ def get_offers_from_positive():
     with open('test.html', 'rb', 0) as file, mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as b_f:
         end = b_f.find(b_end)
         b_f.seek(0)
-        start = b_f.find(bytes(upcoming_events_start, utf))
+        start = b_f.find(b_live_events_start)
         b_f.seek(start)
+        stop = b_f.find(bytes(upcoming_events_start, utf))
 
         offers = list()
 
-        while b_f.tell() != eof:
+        while b_f.tell() != end and b_f.tell() < stop:
             temp_offer = get_offer(b_f, end)
+            if b_f.tell() > stop:
+                break
+            print(b_f.tell())
             if temp_offer is None:
                 return offers
             offers.append(temp_offer)
+        return offers
 
 def get_offer(f_map: mmap.mmap, end: int):
     start = f_map.find(b_event_start)
@@ -71,7 +77,7 @@ def get_bet(f_map: mmap.mmap):
     coef_pos = f_map.find(b_coef_start)
     f_map.seek(coef_pos)
     coef = float(get_str(f_map))
-    bet = classes.Bet(positive, team_name, coef, time_ph)
+    bet = classes.Bet(positive, team_name, coef)
     return bet
 
 def str_to_time(time_str: str):
@@ -130,20 +136,22 @@ def get_event(f_map: mmap.mmap):
     return event
 
 
+if __name__ == '__main__':
+    r = requests.get(link4, headers=headers)
+    with open('test.html', 'w', encoding=utf) as output_file:
+        output_file.write(r.text)
 
-
-r = requests.get(link4, headers=headers)
-with open('test.html', 'w', encoding=utf) as output_file:
-    output_file.write(r.text)
-
-with open('test.html', 'rb', 0) as file, mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as b_f:
-    b_f.seek(0, 2)
-    eof = b_f.tell()
-    b_f.seek(0)
-    start = b_f.find(bytes(upcoming_events_start, utf))
-    b_f.seek(start)
-    kek = get_offers_from_positive()
-    lol = kek[len(kek) - 1]
-    print(lol.bet1.__dict__)
-
+    with open('test.html', 'rb', 0) as file, mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as b_f:
+        b_f.seek(0, 2)
+        eof = b_f.tell()
+        b_f.seek(0)
+        start = b_f.find(b_live_events_start)
+        upcoming_start = b_f.find(bytes(upcoming_events_start, utf))
+        print(upcoming_start)
+        b_f.seek(start)
+        kek = get_offers_from_positive()
+        for lol in kek:
+            print(lol.bet1.__dict__)
+            print(lol.bet2.__dict__)
+            print('\n')
 

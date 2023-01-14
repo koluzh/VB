@@ -1,7 +1,8 @@
 import time
 
+
 class Bet:
-    def __init__(self, link: str, team_name: str, value: float, time: time.struct_time):
+    def __init__(self, link: str, team_name: str, value: float, time: time.struct_time = None):
         self.link = link
         self.team_name = team_name
         self.coef_value = value
@@ -24,8 +25,9 @@ class Offer:
         self.set_parent(bet1)
         self.bet2 = bet2
         self.set_parent(bet2)
+        self.time_of_match = bet1.time_of_match
 
-        if bet1.link != bet2.link or bet1.team_name == bet2.team_name:
+        if bet1.link != bet2.link or bet1.team_name == bet2.team_name or bet1.time_of_match != bet2.time_of_match:
             Exception("Invalid bets")
 
         self.link = bet1.link
@@ -35,7 +37,7 @@ class Offer:
 
 
 class Fork:
-    def __init__(self, offer1: Offer, offer2: Offer, time: time.struct_time):
+    def __init__(self, offer1: Offer, offer2: Offer, time: time.struct_time = None):
         self.time = time
         self.offer1 = offer1
         self.offer2 = offer2
@@ -46,6 +48,14 @@ class Fork:
         self.max_profit_bet.value = self.max_profit / self.max_profit_bet.coef_value
         self.max_value = None
         self.max_value_bet = self.get_max_value()
+
+    def get_names(self):
+        names = []
+        names.append(self.offer1.bet1.team_name)
+        names.append(self.offer1.bet2.team_name)
+        names.append(self.offer2.bet1.team_name)
+        names.append(self.offer2.bet2.team_name)
+        print(names)
 
     def get_value(self, bet_amount: float = None, bet: Bet = None):
         if bet_amount is None:
@@ -90,17 +100,17 @@ class Fork:
             winner = self.max_profit_bet
 
         hedge = self.get_opposite_bet(winner)
-        hedge_amount = bet_amount/hedge.coef_value
+        hedge_amount = bet_amount/(hedge.coef_value - 1)
         profit = winner.coef_value * bet_amount - hedge_amount - bet_amount
         return profit
 
     def get_opposite_bet(self, first: Bet):
         opposite_offer = self.get_opposite_offer(first.parent)
 
-        if opposite_offer.bet1.equals(first):
+        if opposite_offer.bet1.team_name == first.team_name:
             first.hedge = opposite_offer.bet2
             return opposite_offer.bet2
-        elif opposite_offer.bet2.equals(first):
+        elif opposite_offer.bet2.team_name == first.team_name:
             first.hedge = opposite_offer.bet1
             return opposite_offer.bet1
         else:
@@ -120,28 +130,31 @@ class Fork:
             bet_amount = 100
 
         profit = self.get_profit(bet_amount)
-        lose = bet_amount / self.max_profit_bet.hedge.coef_value
+        hedge_amount = bet_amount / (self.max_profit_bet.hedge.coef_value - 1)
         print('team 1: ', self.max_profit_bet.team_name, '\nsite: ', self.max_profit_bet.link, '\nbet: ', bet_amount)
         print('coef: ', self.max_profit_bet.coef_value)
         print('value: ', profit/self.max_profit_bet.coef_value)
         print('\nteam 2: ', self.max_profit_bet.hedge.team_name, '\nsite: ', self.max_profit_bet.hedge.link,
-              '\nbet: ', lose)
+              '\nbet: ', hedge_amount)
         print('coef: ', self.max_profit_bet.hedge.coef_value)
         print('\nprofit: ', profit)
+        print('profitability: ', self.max_profit/(bet_amount + hedge_amount) * 100)
+
 
     def get_info_value(self, bet_amount: float = None):
         if bet_amount is None:
             bet_amount = 100
 
         value = self.get_value(bet_amount)
-        lose = bet_amount / self.max_value_bet.hedge.coef_value
+        hedge_amount = bet_amount / (self.max_value_bet.hedge.coef_value - 1)
         print('team 1: ', self.max_value_bet.team_name, '\nsite: ', self.max_value_bet.link, '\nbet: ', bet_amount)
         print('coef: ', self.max_value_bet.coef_value)
         print('value: ', self.max_value)
         print('\nteam 2: ', self.max_value_bet.hedge.team_name, '\nsite: ', self.max_value_bet.hedge.link,
-              '\nbet: ', lose)
+              '\nbet: ', hedge_amount)
         print('coef: ', self.max_value_bet.hedge.coef_value)
         print('\nprofit: ', self.max_profit)
+        print('profitability: ', self.max_profit/(bet_amount + hedge_amount) * 100)
 
 
 class Query:
@@ -168,5 +181,12 @@ class Query:
         else:
             return False
 
-
+def compare_offers(offer1: Offer, offer2: Offer):
+    teams1 = [offer1.bet1.team_name, offer1.bet2.team_name]
+    teams2 = [offer2.bet1.team_name, offer2.bet2.team_name]
+    if teams1[0] == teams2[0] and teams1[1] == teams2[1]:
+        return True
+    if teams1[0] == teams2[1] and teams1[1] == teams2[0]:
+        return True
+    return False
 

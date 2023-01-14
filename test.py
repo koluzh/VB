@@ -7,16 +7,16 @@ leon = 'leon'
 csgo = 'csgo'
 
 # teams
-team1 = 'ns'
-team2 = 'ez'
+team1 = 'dvorak'
+team2 = 'kape'
 
 # leon
-coef_1_1 = 1.27
-coef_1_2 = 3.5
+coef_1_1 = 3.69
+coef_1_2 = 1.27
 
 # csgo
-coef_2_1 = 1.278
-coef_2_2 = 3.165
+coef_2_1 = 3.253
+coef_2_2 = 1.263
 
 # get_time
 t0 = time.time()
@@ -29,10 +29,10 @@ bet3 = classes.Bet(csgo, team1, coef_2_1, t0)
 bet4 = classes.Bet(csgo, team2, coef_2_2, t0)
 
 # offers
-offer1 = classes.Offer(bet1, bet2)
-offer2 = classes.Offer(bet3, bet4)
+offer1 = classes.Offer(bet1, bet2, "kek")
+offer2 = classes.Offer(bet3, bet4, "lol")
 
 # arbitrage
 arb = classes.Fork(offer1, offer2, t0)
-arb.get_info_profit(66)
+arb.get_info_profit(100)
 print('\n')
