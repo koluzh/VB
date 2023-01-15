@@ -1,3 +1,5 @@
+import random
+
 import classes
 from positive_parcer import get_offers_from_positive
 from leon_parcer import get_offers_from_leon
@@ -19,25 +21,33 @@ def teams_are_equal(teams1: list[str], teams2: list[str]):
 
 
 def get_offers(max_time: int = None):
-    offers_positive = get_offers_from_positive()
-    offers_leon = get_offers_from_leon()
-    start = time.time()
     while True:
+        offers_positive = get_offers_from_positive()
+        offers_leon = get_offers_from_leon()
+        start = time.time()
+        k = 0
         for o_p in offers_positive:
             for o_l in offers_leon:
                 # print((o_p.bet1.team_name, o_p.bet2.team_name, o_l.bet1.team_name, o_l.bet2.team_name))
                 if classes.compare_offers(o_p, o_l):
+                    k = k + 1
                     fork = classes.Fork(o_p, o_l, o_p.time_of_match)
                     if fork.max_profit > 0:
-                        fork.get_info_profit(250)
+                        print('казино взломано:')
+                        fork.get_info_profit(leon_bet=200, positive_bet=100)
                         print('------------------------\n')
                         winsound.Beep(frequency, duration)
+                        winsound.Beep(frequency, duration)
                     else:
-                        print('negative')
-        time.sleep(0.3)
+                        print('идет взлом казино......')
+        print('positive: ', len(offers_positive))
+        print('leon: ', len(offers_leon))
+        print('совпадения: ', k)
+        time.sleep(0.4 + random.randint(0, 15) / 10)
         if max_time is not None:
             if time.time() - start > max_time:
                 break
+
 
 get_offers()
 

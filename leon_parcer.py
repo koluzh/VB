@@ -1,16 +1,8 @@
-# поиск ссылок на одинаковые ивенты
-# https://leon.ru/api-2/betline/events/prematch?ctag=ru-RU&family=esport&hideClosed=true&flags=reg,mm2,rrc,nodup,urlv2
-import time
-
 import requests
 import mmap
 import json
 import classes
-from positive_parcer import get_offers_from_positive
 
-link1 = "https://leon.ru/esports"
-link2 = "https://csgopositive.me/"    #correct
-link3 = "https://www.kinopoisk.ru/"
 link4 = "https://leon.ru/api-2/betline/changes/inplay?ctag=ru-RU&vtag=9c2cd386-31e1-4ce9-a140-28e9b63a9300&family=esport&hideClosed=true&flags=reg,mm2,rrc,nodup,urlv2"    #correct
 
 

@@ -1,5 +1,6 @@
 import time
-
+from config import *
+import winsound
 
 class Bet:
     def __init__(self, link: str, team_name: str, value: float, time: time.struct_time = None):
@@ -132,36 +133,43 @@ class Fork:
         else:
             Exception('Invalid offers')
 
-    def get_info_profit(self, bet_amount: float = None):
-        if bet_amount is None:
-            bet_amount = 100
+    def get_info_profit(self, leon_bet=None, positive_bet=None):
+        if leon_bet is None:
+            leon_bet = 100
+        if positive_bet is None:
+            positive_bet = 100
+
+
+        if self.max_profit_bet.link == leon:
+            bet_amount = leon_bet
+        if self.max_profit_bet.link == positive:
+            bet_amount = positive_bet
+
+        hedge_amount = bet_amount / (self.max_profit_bet.hedge.coef_value - 1)
+
+        if self.hedge_bet.link == leon:
+            if hedge_amount > leon_bet:
+                hedge_amount = leon_bet
+                bet_amount = hedge_amount * (self.hedge_bet.coef_value - 1)
+
+        if self.hedge_bet.link == positive:
+            if hedge_amount > positive_bet:
+                hedge_amount = positive_bet
+                bet_amount = hedge_amount * (self.hedge_bet.coef_value - 1)
 
         profit = self.get_profit(bet_amount)
-        hedge_amount = bet_amount / (self.max_profit_bet.hedge.coef_value - 1)
-        print('team 1: ', self.max_profit_bet.team_name, '\nsite: ', self.max_profit_bet.link, '\nbet: ', bet_amount)
-        print('coef: ', self.max_profit_bet.coef_value)
-        print('value: ', profit/self.max_profit_bet.coef_value)
-        print('\nteam 2: ', self.max_profit_bet.hedge.team_name, '\nsite: ', self.max_profit_bet.hedge.link,
-              '\nbet: ', hedge_amount)
-        print('coef: ', self.max_profit_bet.hedge.coef_value)
-        print('\nprofit: ', profit)
-        print('profitability: ', self.max_profit/(bet_amount + hedge_amount) * 100)
-
-
-    def get_info_value(self, bet_amount: float = None):
-        if bet_amount is None:
-            bet_amount = 100
-
-        value = self.get_value(bet_amount)
-        hedge_amount = bet_amount / (self.max_value_bet.hedge.coef_value - 1)
-        print('team 1: ', self.max_value_bet.team_name, '\nsite: ', self.max_value_bet.link, '\nbet: ', bet_amount)
-        print('coef: ', self.max_value_bet.coef_value)
-        print('value: ', self.max_value)
-        print('\nteam 2: ', self.max_value_bet.hedge.team_name, '\nsite: ', self.max_value_bet.hedge.link,
-              '\nbet: ', hedge_amount)
-        print('coef: ', self.max_value_bet.hedge.coef_value)
-        print('\nprofit: ', self.max_profit)
-        print('profitability: ', self.max_profit/(bet_amount + hedge_amount) * 100)
+        loss = self.hedge_bet.coef_value * hedge_amount - bet_amount
+        if loss < 0:
+            print('no go')
+            winsound.Beep(200, 3000)
+        else:
+            print('team 1: ', self.max_profit_bet.team_name, '\nsite: ', self.max_profit_bet.link, '\nbet: ', bet_amount)
+            print('coef: ', self.max_profit_bet.coef_value)
+            print('\nteam 2: ', self.max_profit_bet.hedge.team_name, '\nsite: ', self.max_profit_bet.hedge.link,
+                  '\nbet: ', hedge_amount)
+            print('coef: ', self.max_profit_bet.hedge.coef_value)
+            print('\nprofit: ', profit)
+            print('profitability: ', self.max_profit/(bet_amount + hedge_amount) * 100)
 
 
 class Query:

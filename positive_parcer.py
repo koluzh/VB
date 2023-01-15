@@ -1,15 +1,12 @@
-# поиск ссылок на одинаковые ивенты
-#https://leon.ru/api-2/betline/events/prematch?ctag=ru-RU&family=esport&hideClosed=true&flags=reg,mm2,rrc,nodup,urlv2
 import requests
 import mmap
 import classes
 import time
 import datetime as dt
 from config import *
+import random
+import winsound
 
-link1 = "https://leon.ru/esports"
-link2 = "https://csgopositive.me/"    #correct
-link3 = "https://www.kinopoisk.ru/"
 link4 = "https://csgopositive.me/"    #correct
 
 
@@ -27,7 +24,13 @@ def get_offers_from_positive():
         end = b_f.find(b_end)
         b_f.seek(0)
         start = b_f.find(b_live_events_start)
-        b_f.seek(start)
+        try:
+            b_f.seek(start)
+        except:
+            print('sleeping')
+            winsound.Beep(1000, 500)
+            time.sleep(random.randint(10, 20))
+            winsound.Beep(2000, 500)
         stop = b_f.find(bytes(upcoming_events_start, utf))
 
         offers = list()
@@ -64,7 +67,10 @@ def get_str(f_map: mmap.mmap):
         b_char = f_map.read(1)
         if b_char == b_stop:
             break
-        char = b_char.decode(utf)
+        try:
+            char = b_char.decode(utf)
+        except:
+            continue
         string.append(char)
     string = ''.join(string)
     return string

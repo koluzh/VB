@@ -11,12 +11,12 @@ team1 = 'dvorak'
 team2 = 'kape'
 
 # leon
-coef_1_1 = 4.93
-coef_1_2 = 1.17
+coef_1_1 = 2.33
+coef_1_2 = 1.58
 
 # csgo
-coef_2_1 = 3.937
-coef_2_2 = 1.177
+coef_2_1 = 2.428
+coef_2_2 = 1.472
 
 # get_time
 t0 = time.time()
