@@ -11,12 +11,12 @@ team1 = 'dvorak'
 team2 = 'kape'
 
 # leon
-coef_1_1 = 3.69
-coef_1_2 = 1.27
+coef_1_1 = 4.93
+coef_1_2 = 1.17
 
 # csgo
-coef_2_1 = 3.253
-coef_2_2 = 1.263
+coef_2_1 = 3.937
+coef_2_2 = 1.177
 
 # get_time
 t0 = time.time()
@@ -34,5 +34,5 @@ offer2 = classes.Offer(bet3, bet4, "lol")
 
 # arbitrage
 arb = classes.Fork(offer1, offer2, t0)
-arb.get_info_profit(100)
+arb.get_info_profit(250)
 print('\n')

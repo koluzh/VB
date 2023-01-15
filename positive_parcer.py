@@ -36,7 +36,6 @@ def get_offers_from_positive():
             temp_offer = get_offer(b_f, end)
             if b_f.tell() > stop:
                 break
-            print(b_f.tell())
             if temp_offer is None:
                 return offers
             offers.append(temp_offer)
@@ -137,21 +136,9 @@ def get_event(f_map: mmap.mmap):
 
 
 if __name__ == '__main__':
-    r = requests.get(link4, headers=headers)
-    with open('test.html', 'w', encoding=utf) as output_file:
-        output_file.write(r.text)
-
-    with open('test.html', 'rb', 0) as file, mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as b_f:
-        b_f.seek(0, 2)
-        eof = b_f.tell()
-        b_f.seek(0)
-        start = b_f.find(b_live_events_start)
-        upcoming_start = b_f.find(bytes(upcoming_events_start, utf))
-        print(upcoming_start)
-        b_f.seek(start)
-        kek = get_offers_from_positive()
-        for lol in kek:
-            print(lol.bet1.__dict__)
-            print(lol.bet2.__dict__)
-            print('\n')
+    kek = get_offers_from_positive()
+    for lol in kek:
+        print(lol.bet1.__dict__)
+        print(lol.bet2.__dict__)
+        print('\n')
 

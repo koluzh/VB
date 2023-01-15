@@ -4,7 +4,7 @@ import time
 class Bet:
     def __init__(self, link: str, team_name: str, value: float, time: time.struct_time = None):
         self.link = link
-        self.team_name = team_name
+        self.team_name = team_name.upper().split(' ')[0]
         self.coef_value = value
         self.time_of_match = time
         self.parent = None
@@ -17,6 +17,9 @@ class Bet:
         else:
             return False
 
+    def info(self):
+        print(self.team_name)
+        print(self.coef_value)
 
 class Offer:
     def __init__(self, bet1: Bet, bet2: Bet, name: str):
@@ -35,6 +38,10 @@ class Offer:
     def set_parent(self, child: Bet):
         child.parent = self
 
+    def info(self):
+        print('\n')
+        self.bet1.info()
+        self.bet2.info()
 
 class Fork:
     def __init__(self, offer1: Offer, offer2: Offer, time: time.struct_time = None):
@@ -107,10 +114,10 @@ class Fork:
     def get_opposite_bet(self, first: Bet):
         opposite_offer = self.get_opposite_offer(first.parent)
 
-        if opposite_offer.bet1.team_name == first.team_name:
+        if opposite_offer.bet1.team_name in first.team_name or first.team_name in opposite_offer.bet1.team_name:
             first.hedge = opposite_offer.bet2
             return opposite_offer.bet2
-        elif opposite_offer.bet2.team_name == first.team_name:
+        elif opposite_offer.bet2.team_name in first.team_name or first.team_name in opposite_offer.bet2.team_name:
             first.hedge = opposite_offer.bet1
             return opposite_offer.bet1
         else:
@@ -184,9 +191,9 @@ class Query:
 def compare_offers(offer1: Offer, offer2: Offer):
     teams1 = [offer1.bet1.team_name, offer1.bet2.team_name]
     teams2 = [offer2.bet1.team_name, offer2.bet2.team_name]
-    if teams1[0] == teams2[0] and teams1[1] == teams2[1]:
+    if teams1[0] in teams2[0] and teams1[1] in teams2[1]:
         return True
-    if teams1[0] == teams2[1] and teams1[1] == teams2[0]:
+    if teams1[0] in teams2[1] and teams1[1] in teams2[0]:
         return True
     return False
 
