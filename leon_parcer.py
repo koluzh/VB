@@ -39,6 +39,13 @@ def get_offers_from_leon():
             price2 = data['markets'][0]['runners'][1]['price']
             hw2_1 = data['markets'][0]['runners'][0]['tags'][0]
             hw2_2 = data['markets'][0]['runners'][1]['tags'][0]
+
+            state_1 = data['markets'][0]['runners'][0]['open']
+            state_2 = data['markets'][0]['runners'][1]['open']
+
+            if state_2 is False or state_1 is False:
+                continue
+
             hw = [hw1_1, hw1_2, hw2_1, hw2_2]
             # print(data, '\n', hw)
             if hw1_1 != hw2_1:
@@ -51,6 +58,9 @@ def get_offers_from_leon():
             print('no markets')
 
     return offers_leon
+
+if __name__ == '__main__':
+    get_offers_from_leon()
 
 
 

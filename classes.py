@@ -133,17 +133,17 @@ class Fork:
         else:
             Exception('Invalid offers')
 
-    def get_info_profit(self, leon_bet=None, positive_bet=None):
+    def get_info_profit(self, leon_bet=None, betboom_bet=None):
         if leon_bet is None:
             leon_bet = 100
-        if positive_bet is None:
-            positive_bet = 100
+        if betboom_bet is None:
+            betboom_bet = 100
 
 
         if self.max_profit_bet.link == leon:
             bet_amount = leon_bet
-        if self.max_profit_bet.link == positive:
-            bet_amount = positive_bet
+        if self.max_profit_bet.link == betboom:
+            bet_amount = betboom_bet
 
         hedge_amount = bet_amount / (self.max_profit_bet.hedge.coef_value - 1)
 
@@ -152,9 +152,9 @@ class Fork:
                 hedge_amount = leon_bet
                 bet_amount = hedge_amount * (self.hedge_bet.coef_value - 1)
 
-        if self.hedge_bet.link == positive:
-            if hedge_amount > positive_bet:
-                hedge_amount = positive_bet
+        if self.hedge_bet.link == betboom:
+            if hedge_amount > betboom_bet:
+                hedge_amount = betboom_bet
                 bet_amount = hedge_amount * (self.hedge_bet.coef_value - 1)
 
         profit = self.get_profit(bet_amount)
@@ -169,7 +169,9 @@ class Fork:
                   '\nbet: ', hedge_amount)
             print('coef: ', self.max_profit_bet.hedge.coef_value)
             print('\nprofit: ', profit)
-            print('profitability: ', self.max_profit/(bet_amount + hedge_amount) * 100)
+            profitability = self.max_profit/(bet_amount + hedge_amount) * 100
+            print('profitability: ', profitability)
+            return profitability
 
 
 class Query:
@@ -200,8 +202,12 @@ def compare_offers(offer1: Offer, offer2: Offer):
     teams1 = [offer1.bet1.team_name, offer1.bet2.team_name]
     teams2 = [offer2.bet1.team_name, offer2.bet2.team_name]
     if teams1[0] in teams2[0] and teams1[1] in teams2[1]:
+        # print(teams1)
+        # print(teams2)
         return True
     if teams1[0] in teams2[1] and teams1[1] in teams2[0]:
+        # print(teams1)
+        # print(teams2)
         return True
     return False
 

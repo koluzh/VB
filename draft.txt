@@ -1,0 +1,227 @@
+{          "node": {
+            "id": "bWF0Y2gvb2Q6bWF0Y2g6MTcyOTIw",
+            "marketsCount": 28,
+            "stream": {
+              "url": "https://www.twitch.tv/cct_ru",
+              "streamProvider": "GENERIC",
+              "__typename": "Stream"
+            },
+            "favourite": false,
+            "datePlannedStart": "2023-01-17T19:05:00Z",
+            "state": "STARTED",
+            "prematchOnly": false,
+            "teams": [
+              {
+                "team": {
+                  "id": "dGVhbS9vZDpjb21wZXRpdG9yOjU4MzE=",
+                  "name": "Partizan Esports",
+                  "icon": null,
+                  "__typename": "Team"
+                },
+                "winner": null,
+                "__typename": "MatchTeam"
+              },
+              {
+                "team": {
+                  "id": "dGVhbS9vZDpjb21wZXRpdG9yOjYyMA==",
+                  "name": "ALTERNATE aTTaX",
+                  "icon": "https://cdn.oddin.gg/assets/teams/icons/alternate-attax.png",
+                  "__typename": "Team"
+                },
+                "winner": null,
+                "__typename": "MatchTeam"
+              }
+            ],
+            "__typename": "Match",
+            "tournament": {
+              "id": "dG91cm5hbWVudC9vZDp0b3VybmFtZW50OjMwMjM=",
+              "name": "CCT South Europe Series #2",
+              "favourite": false,
+              "sport": {
+                "id": "c3BvcnQvb2Q6c3BvcnQ6Mw==",
+                "icon": "https://cdn.oddin.gg/assets/sports/icons/csgo.png",
+                "name": "Counter-Strike",
+                "__typename": "Sport"
+              },
+              "__typename": "Tournament"
+            },
+            "mainMarketGroups": [
+              {
+                "id": "bWFpbl9tYXJrZXRfZ3JvdXAvb2Q6bWF0Y2g6MTcyOTIwLzF8dmFyaWFudD13YXk6dHdv",
+                "name": "Исход матча",
+                "namePrefix": null,
+                "layoutType": "TEAM",
+                "independenceId": "aW5kZXBlbmRlbmNlL29kOm1hdGNoOjE3MjkyMA==",
+                "selections": [
+                  {
+                    "id": "bWFya2V0X2dyb3VwX3NlbGVjdGlvbi9vZDptYXRjaDoxNzI5MjAvMXx2YXJpYW50PXdheTp0d28vMQ==",
+                    "name": "Partizan Esports",
+                    "__typename": "MarketGroupSelection"
+                  },
+                  {
+                    "id": "bWFya2V0X2dyb3VwX3NlbGVjdGlvbi9vZDptYXRjaDoxNzI5MjAvMXx2YXJpYW50PXdheTp0d28vMg==",
+                    "name": "ALTERNATE aTTaX",
+                    "__typename": "MarketGroupSelection"
+                  }
+                ],
+                "markets": [
+                  {
+                    "id": "bWFya2V0L29kOm1hdGNoOjE3MjkyMC8xfHZhcmlhbnQ9d2F5OnR3by8xLXZhcmlhbnQ9d2F5OnR3b3x3YXk9dHdv",
+                    "info": null,
+                    "state": "SUSPENDED",
+                    "outcomes": [
+                      {
+                        "id": "b3V0Y29tZS9vZDptYXRjaDoxNzI5MjAvMXx2YXJpYW50PXdheTp0d28vMS12YXJpYW50PXdheTp0d298d2F5PXR3by8x",
+                        "odds": 1.32,
+                        "state": "SUSPENDED",
+                        "won": null,
+                        "__typename": "Outcome"
+                      },
+                      {
+                        "id": "b3V0Y29tZS9vZDptYXRjaDoxNzI5MjAvMXx2YXJpYW50PXdheTp0d28vMS12YXJpYW50PXdheTp0d298d2F5PXR3by8y",
+                        "odds": 3.1,
+                        "state": "SUSPENDED",
+                        "won": null,
+                        "__typename": "Outcome"
+                      }
+                    ],
+                    "__typename": "Market"
+                  }
+                ],
+                "__typename": "MainMarketGroup"
+              },
+              {
+                "id": "bWFpbl9tYXJrZXRfZ3JvdXAvb2Q6bWF0Y2g6MTcyOTIwLzI=",
+                "name": "Фора по картам",
+                "namePrefix": null,
+                "layoutType": "THRESHOLD",
+                "independenceId": "aW5kZXBlbmRlbmNlL29kOm1hdGNoOjE3MjkyMA==",
+                "selections": [
+                  {
+                    "id": "bWFya2V0X2dyb3VwX3NlbGVjdGlvbi9vZDptYXRjaDoxNzI5MjAvMi8x",
+                    "name": "Partizan Esports",
+                    "__typename": "MarketGroupSelection"
+                  },
+                  {
+                    "id": "bWFya2V0X2dyb3VwX3NlbGVjdGlvbi9vZDptYXRjaDoxNzI5MjAvMi8y",
+                    "name": "ALTERNATE aTTaX",
+                    "__typename": "MarketGroupSelection"
+                  }
+                ],
+                "markets": [
+                  {
+                    "id": "bWFya2V0L29kOm1hdGNoOjE3MjkyMC8yLzItaGFuZGljYXA9MS41",
+                    "info": "-1.5",
+                    "state": "CLOSED",
+                    "outcomes": [
+                      {
+                        "id": "b3V0Y29tZS9vZDptYXRjaDoxNzI5MjAvMi8yLWhhbmRpY2FwPTEuNS8x",
+                        "odds": 6.3,
+                        "state": "CLOSED",
+                        "won": false,
+                        "__typename": "Outcome"
+                      },
+                      {
+                        "id": "b3V0Y29tZS9vZDptYXRjaDoxNzI5MjAvMi8yLWhhbmRpY2FwPTEuNS8y",
+                        "odds": 1.08,
+                        "state": "CLOSED",
+                        "won": true,
+                        "__typename": "Outcome"
+                      }
+                    ],
+                    "__typename": "Market"
+                  }
+                ],
+                "__typename": "MainMarketGroup"
+              },
+              {
+                "id": "bWFpbl9tYXJrZXRfZ3JvdXAvb2Q6bWF0Y2g6MTcyOTIwLzM=",
+                "name": "Тотал карт",
+                "namePrefix": null,
+                "layoutType": "STANDARD",
+                "independenceId": "aW5kZXBlbmRlbmNlL29kOm1hdGNoOjE3MjkyMA==",
+                "selections": [
+                  {
+                    "id": "bWFya2V0X2dyb3VwX3NlbGVjdGlvbi9vZDptYXRjaDoxNzI5MjAvMy80",
+                    "name": "Меньше",
+                    "__typename": "MarketGroupSelection"
+                  },
+                  {
+                    "id": "bWFya2V0X2dyb3VwX3NlbGVjdGlvbi9vZDptYXRjaDoxNzI5MjAvMy81",
+                    "name": "Больше",
+                    "__typename": "MarketGroupSelection"
+                  }
+                ],
+                "markets": [
+                  {
+                    "id": "bWFya2V0L29kOm1hdGNoOjE3MjkyMC8zLzMtdGhyZXNob2xkPTIuNQ==",
+                    "info": "2.5",
+                    "state": "CLOSED",
+                    "outcomes": [
+                      {
+                        "id": "b3V0Y29tZS9vZDptYXRjaDoxNzI5MjAvMy8zLXRocmVzaG9sZD0yLjUvNA==",
+                        "odds": 5,
+                        "state": "CLOSED",
+                        "won": false,
+                        "__typename": "Outcome"
+                      },
+                      {
+                        "id": "b3V0Y29tZS9vZDptYXRjaDoxNzI5MjAvMy8zLXRocmVzaG9sZD0yLjUvNQ==",
+                        "odds": 1.13,
+                        "state": "CLOSED",
+                        "won": true,
+                        "__typename": "Outcome"
+                      }
+                    ],
+                    "__typename": "Market"
+                  }
+                ],
+                "__typename": "MainMarketGroup"
+              }
+            ],
+            "periods": [
+              {
+                "number": 1,
+                "homeScore": 0,
+                "awayScore": 1,
+                "periodScore": {
+                  "homeWonRounds": 17,
+                  "awayWonRounds": 19,
+                  "__typename": "RoundsPeriodScore"
+                },
+                "__typename": "Period"
+              },
+              {
+                "number": 2,
+                "homeScore": 1,
+                "awayScore": 0,
+                "periodScore": {
+                  "homeWonRounds": 16,
+                  "awayWonRounds": 14,
+                  "__typename": "RoundsPeriodScore"
+                },
+                "__typename": "Period"
+              },
+              {
+                "number": 3,
+                "homeScore": 0,
+                "awayScore": 0,
+                "periodScore": {
+                  "homeWonRounds": 0,
+                  "awayWonRounds": 0,
+                  "__typename": "RoundsPeriodScore"
+                },
+                "__typename": "Period"
+              }
+            ],
+            "activePeriod": 2,
+            "scoreboard": {
+              "homeCtTeam": false,
+              "homeWonRounds": 5,
+              "awayWonRounds": 3,
+              "currentRound": 9,
+              "__typename": "CsgoScoreboard"
+            }
+          },
+          "__typename": "MatchEdge"
+        },
