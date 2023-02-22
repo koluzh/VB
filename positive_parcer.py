@@ -28,9 +28,9 @@ def get_offers_from_positive():
             b_f.seek(start)
         except:
             print('sleeping')
-            winsound.Beep(1000, 500)
+            #winsound.Beep(1000, 500)
             time.sleep(random.randint(10, 20))
-            winsound.Beep(2000, 500)
+            #winsound.Beep(2000, 500)
         stop = b_f.find(bytes(upcoming_events_start, utf))
 
         offers = list()

@@ -35,6 +35,10 @@ def get_offers_from_leon():
             hw1_1 = data['competitors'][0]['homeAway']
             hw1_2 = data['competitors'][1]['homeAway']
 
+            if data['markets'][0]['name'] != 'Победитель':
+                print(name1, name2, 'kekekek')
+                continue
+
             price1 = data['markets'][0]['runners'][0]['price']
             price2 = data['markets'][0]['runners'][1]['price']
             hw2_1 = data['markets'][0]['runners'][0]['tags'][0]

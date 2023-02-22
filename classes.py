@@ -133,32 +133,15 @@ class Fork:
         else:
             Exception('Invalid offers')
 
-    def get_info_profit(self, leon_bet=None, betboom_bet=None):
-        if leon_bet is None:
-            leon_bet = 100
-        if betboom_bet is None:
-            betboom_bet = 100
-
-
-        if self.max_profit_bet.link == leon:
-            bet_amount = leon_bet
-        if self.max_profit_bet.link == betboom:
-            bet_amount = betboom_bet
+    def get_info_profit(self, bet_amount: float = None):
+        if bet_amount is None:
+            bet_amount = 100
 
         hedge_amount = bet_amount / (self.max_profit_bet.hedge.coef_value - 1)
 
-        if self.hedge_bet.link == leon:
-            if hedge_amount > leon_bet:
-                hedge_amount = leon_bet
-                bet_amount = hedge_amount * (self.hedge_bet.coef_value - 1)
-
-        if self.hedge_bet.link == betboom:
-            if hedge_amount > betboom_bet:
-                hedge_amount = betboom_bet
-                bet_amount = hedge_amount * (self.hedge_bet.coef_value - 1)
-
         profit = self.get_profit(bet_amount)
         loss = self.hedge_bet.coef_value * hedge_amount - bet_amount
+
         if loss < 0:
             print('no go')
             winsound.Beep(200, 3000)

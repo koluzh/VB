@@ -1,10 +1,12 @@
 import random
-
+import time
+from typing import Callable
 import classes
 from positive_parcer import get_offers_from_positive
 from leon_parcer import get_offers_from_leon
 from betboom_parcer import get_offers_from_betboom
 from config import *
+from olimp_parcer import get_offers_from_olimp
 import winsound
 frequency = 2500  # Set Frequency To 2500 Hertz
 duration = 500  # Set Duration To 1000 ms == 1 second
@@ -20,40 +22,61 @@ def teams_are_equal(teams1: list[str], teams2: list[str]):
         Exception('wrong team names')
 
 
-def get_offers(max_time: int = None):
-    while True:
-        offers_positive = get_offers_from_positive()
-        offers_leon = get_offers_from_leon()
-        offers_betboom = get_offers_from_betboom()
-        start = time.time()
-        k = 0
-        for o_p in offers_betboom:
-            for o_l in offers_leon:
-                # print((o_p.bet1.team_name, o_p.bet2.team_name, o_l.bet1.team_name, o_l.bet2.team_name))
-                if classes.compare_offers(o_p, o_l):
-                    k = k + 1
-                    fork = classes.Fork(o_p, o_l, o_p.time_of_match)
-                    if fork.max_profit > 0:
-                        print('------------------------\n')
-                        print('казино взломано:')
-                        temp = fork.get_info_profit(leon_bet=150, betboom_bet=150)
-                        print('------------------------\n')
-                        if temp > 10:
-                            print('BIG MONEY')
-                            print('BIG MONEY')
-                            print('BIG MONEY')
-                            winsound.Beep(frequency, duration)
-                            winsound.Beep(frequency, duration)
-                    else:
-                        print('идет взлом казино......')
-        print('betboom: ', len(offers_betboom))
-        print('leon: ', len(offers_leon))
-        print('совпадения: ', k)
-        time.sleep(5 + random.randint(0, 15) / 10)
-        if max_time is not None:
-            if time.time() - start > max_time:
-                break
+def get_forks(offers_1: list[classes.Offer], offers_2: list[classes.Offer]):
+    forks = list()
+    for o_1 in offers_1:
+        for o_2 in offers_2:
+            # print(o_1.bet1.team_name, o_1.bet2.team_name, o_2.bet1.team_name, o_2.bet2.team_name)
+            if classes.compare_offers(o_1, o_2):
+                # print('lol')
+                temp_fork = classes.Fork(o_1, o_2)
+                forks.append(temp_fork)
+    return forks
 
 
-get_offers()
+def parse(funcs: list[Callable]):
+    data_l = list()
+    for f in funcs:
+        try:
+            temp_l = f()
+            data_l.append(temp_l)
+        except:
+            print(f.__name__ + ' shat himself')
 
+    forks = list()
+
+    for i in range(len(data_l)):
+        for j in range(i + 1, len(data_l)):
+            forks.extend(get_forks(data_l[i], data_l[j]))
+            # except:
+            #     print(len(data_l))
+            #     print(len(data_l[i]), len(data_l[j]))
+            #     print('i think i shat myself')
+            #     continue
+
+
+    for f in forks:
+        if f.max_profit > 0:
+            print('------------------------\n')
+            print('казино взломано:')
+            temp = f.get_info_profit(50)
+            print('------------------------\n')
+            # winsound.Beep(frequency, duration)
+            if temp >= 5:
+                print('BIG MONEY')
+                print('BIG MONEY')
+                print('BIG MONEY')
+                winsound.Beep(frequency, duration)
+                winsound.Beep(frequency, duration)
+                winsound.Beep(frequency, duration)
+        else:
+            print('идет взлом казино, ожидайте......')
+            print(len(forks))
+            print(f.offer1.bet1.team_name, f.offer1.bet2.team_name, f.offer1.link, f.offer2.link, f.max_profit)
+
+
+funcs = [get_offers_from_betboom, get_offers_from_leon]
+
+while True:
+    parse(funcs)
+    time.sleep(3 + random.randint(0, 100)/100)

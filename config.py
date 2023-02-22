@@ -1,12 +1,13 @@
 import time
 
 # common
-time_ph = time.gmtime()
 
 leon = 'leon'
 positive = 'positive'
-utf = 'utf-8'
 betboom = 'betboom'
+olimp = 'olimp'
+
+utf = 'utf-8'
 
 # for positive
 live_events_start = 'live_enabled'
