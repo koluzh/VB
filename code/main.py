@@ -11,6 +11,7 @@ import winsound
 frequency = 2500  # Set Frequency To 2500 Hertz
 duration = 500  # Set Duration To 1000 ms == 1 second
 
+
 def teams_are_equal(teams1: list[str], teams2: list[str]):
     if len(teams1) == 2 and len(teams2) == 2:
         if teams1[0] == teams2[0] and teams1[1] == teams2[1]:

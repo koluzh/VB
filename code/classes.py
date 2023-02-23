@@ -157,6 +157,7 @@ class Fork:
             return profitability
 
 
+# ???????
 class Query:
     def __init__(self, key: str):
         self.key = key
@@ -180,6 +181,7 @@ class Query:
             return True
         else:
             return False
+
 
 def compare_offers(offer1: Offer, offer2: Offer):
     teams1 = [offer1.bet1.team_name, offer1.bet2.team_name]

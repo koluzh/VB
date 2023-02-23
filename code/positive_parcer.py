@@ -17,10 +17,10 @@ headers = {
 
 def get_offers_from_positive():
     r = requests.get(link4, headers=headers)
-    with open('temp.html', 'w', encoding=utf) as output_file:
+    with open('../data/temp.html', 'w', encoding=utf) as output_file:
         output_file.write(r.text)
 
-    with open('temp.html', 'rb', 0) as file, mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as b_f:
+    with open('../data/temp.html', 'rb', 0) as file, mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as b_f:
         end = b_f.find(b_end)
         b_f.seek(0)
         start = b_f.find(b_live_events_start)

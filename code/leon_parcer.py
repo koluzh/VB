@@ -12,15 +12,17 @@ headers = {
 def get_offers_from_leon():
     r = requests.get(link4, headers=headers)
 
-    with open('kek.json', 'w', encoding='utf-8') as output_file:
+    data_dir = '../data/leon_data.json'
+
+    with open(data_dir, 'w', encoding='utf-8') as output_file:
         output_file.write(r.text)
-    with open('kek.json', 'rb', 0) as file, mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s:
+    with open(data_dir, 'rb', 0) as file, mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s:
         if s.find(b'priceStr') != -1:
             pass
             #print(s.find(b'priceStr'))
             #print(s[1660])
 
-    f = open('kek.json', encoding='UTF-8')
+    f = open(data_dir, encoding='UTF-8')
     data = json.load(f)
     leon_data = tuple(data.items())
     #print(data)
@@ -35,7 +37,7 @@ def get_offers_from_leon():
             hw1_1 = data['competitors'][0]['homeAway']
             hw1_2 = data['competitors'][1]['homeAway']
 
-            if data['markets'][0]['name'] != 'Победитель':
+            if data['markets'][0]['name'] != 'Победитель':  # ?
                 print(name1, name2, 'kekekek')
                 continue
 

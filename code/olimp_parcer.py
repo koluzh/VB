@@ -13,10 +13,12 @@ headers = {
 def get_offers_from_olimp():
     r = requests.get('https://www.olimp.bet/api/v4/0/live/sports-with-competitions-with-events', headers=headers)
 
-    with open('ob_data.json', 'w', encoding=utf) as output_file:
+    data_dir = '../data/ob_data.json'
+
+    with open(data_dir, 'w', encoding=utf) as output_file:
         output_file.write(r.text)
 
-    with open('ob_data.json', 'rb') as input_file:
+    with open(data_dir, 'rb') as input_file:
         ob_data = json.load(input_file)
 
     ob_data = ob_data[5]
