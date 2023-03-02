@@ -1,13 +1,13 @@
 import requests
 import mmap
-import classes
+from code import classes
 import time
 import datetime as dt
-from config import *
+from code.config import *
 import random
 import winsound
 
-link4 = "https://csgopositive.me/"    #correct
+link4 = "https://csgopositive.me/"    # correct
 
 
 headers = {
@@ -17,10 +17,10 @@ headers = {
 
 def get_offers_from_positive():
     r = requests.get(link4, headers=headers)
-    with open('../data/temp.html', 'w', encoding=utf) as output_file:
+    with open('../../data/temp.html', 'w', encoding=utf) as output_file:
         output_file.write(r.text)
 
-    with open('../data/temp.html', 'rb', 0) as file, mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as b_f:
+    with open('../../data/temp.html', 'rb', 0) as file, mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as b_f:
         end = b_f.find(b_end)
         b_f.seek(0)
         start = b_f.find(b_live_events_start)
@@ -43,6 +43,7 @@ def get_offers_from_positive():
                 return offers
             offers.append(temp_offer)
         return offers
+
 
 def get_offer(f_map: mmap.mmap, end: int):
     start = f_map.find(b_event_start)
@@ -75,6 +76,7 @@ def get_str(f_map: mmap.mmap):
     string = ''.join(string)
     return string
 
+
 def get_bet(f_map: mmap.mmap):
     team_name_pos = f_map.find(b_team_name_start)
     f_map.seek(team_name_pos)
@@ -84,6 +86,7 @@ def get_bet(f_map: mmap.mmap):
     coef = float(get_str(f_map))
     bet = classes.Bet(positive, team_name, coef)
     return bet
+
 
 def str_to_time(time_str: str):
     month = time_str[:2]
@@ -124,7 +127,6 @@ def get_event_time(f_map: mmap.mmap):
             break
     ans = ''.join(ans)
     return ans
-
 
 
 def get_event(f_map: mmap.mmap):

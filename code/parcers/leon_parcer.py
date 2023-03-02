@@ -1,7 +1,7 @@
 import requests
 import mmap
 import json
-import classes
+from code import classes
 
 link4 = "https://leon.ru/api-2/betline/changes/inplay?ctag=ru-RU&vtag=9c2cd386-31e1-4ce9-a140-28e9b63a9300&family=esport&hideClosed=true&flags=reg,mm2,rrc,nodup,urlv2"    #correct
 
@@ -9,23 +9,20 @@ link4 = "https://leon.ru/api-2/betline/changes/inplay?ctag=ru-RU&vtag=9c2cd386-3
 headers = {
   'User-agent': 'Edge 108.0.1462 (WebKit 537.36)'
 }
+
+
 def get_offers_from_leon():
     r = requests.get(link4, headers=headers)
 
-    data_dir = '../data/leon_data.json'
+    data_dir = '../../data/leon_data.json'
 
     with open(data_dir, 'w', encoding='utf-8') as output_file:
         output_file.write(r.text)
-    with open(data_dir, 'rb', 0) as file, mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as s:
-        if s.find(b'priceStr') != -1:
-            pass
-            #print(s.find(b'priceStr'))
-            #print(s[1660])
 
-    f = open(data_dir, encoding='UTF-8')
-    data = json.load(f)
-    leon_data = tuple(data.items())
-    #print(data)
+    with open(data_dir, encoding='UTF-8') as f:
+        data = json.load(f)
+        leon_data = tuple(data.items())
+    # print(data)
 
     offers_leon = list()
 
@@ -64,6 +61,7 @@ def get_offers_from_leon():
             print('no markets')
 
     return offers_leon
+
 
 if __name__ == '__main__':
     get_offers_from_leon()

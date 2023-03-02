@@ -1,6 +1,7 @@
 import time
-from config import *
+from code.config import *
 import winsound
+
 
 class Bet:
     def __init__(self, link: str, team_name: str, value: float, time: time.struct_time = None):
@@ -21,6 +22,7 @@ class Bet:
     def info(self):
         print(self.team_name)
         print(self.coef_value)
+
 
 class Offer:
     def __init__(self, bet1: Bet, bet2: Bet, name: str):
@@ -43,6 +45,7 @@ class Offer:
         print('\n')
         self.bet1.info()
         self.bet2.info()
+
 
 class Fork:
     def __init__(self, offer1: Offer, offer2: Offer, time: time.struct_time = None):

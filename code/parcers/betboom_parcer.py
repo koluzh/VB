@@ -1,9 +1,9 @@
 import requests
 import mmap
-import classes
+from code import classes
 import time
 import datetime as dt
-from config import *
+from code.config import *
 import random
 import winsound
 import json
@@ -36,15 +36,15 @@ headers = {
 
 def get_offers_from_betboom():
     # kek = get_offers_from_html('https://api-bifrost.oddin.gg/main/bifrost/query', live_events_start, end)
-    with open('../req/bb_req.json') as f:
+    with open('../../req/bb_req.json') as f:
         data = json.load(f)
 
     r = requests.post('https://api-bifrost.oddin.gg/main/bifrost/query', headers=headers, json=data)
 
-    with open('../data/bb_data.json', 'w', encoding=utf) as output_file:
+    with open('../../data/bb_data.json', 'w', encoding=utf) as output_file:
         output_file.write(r.text)
 
-    with open('../data/bb_data.json', 'rb') as input_file:
+    with open('../../data/bb_data.json', 'rb') as input_file:
         bb_data = json.load(input_file)
 
     bb_data = tuple(bb_data.items())
@@ -77,6 +77,7 @@ def get_offers_from_betboom():
             print('something went wrong, wait a little')
 
     return offers
+
 
 if __name__ == '__main__':
     get_offers_from_betboom()

@@ -1,12 +1,11 @@
 import random
-import time
 from typing import Callable
 import classes
-from positive_parcer import get_offers_from_positive
-from leon_parcer import get_offers_from_leon
-from betboom_parcer import get_offers_from_betboom
+from code.parcers.positive_parcer import get_offers_from_positive
+from code.parcers.leon_parcer import get_offers_from_leon
+from code.parcers.betboom_parcer import get_offers_from_betboom
 from config import *
-from olimp_parcer import get_offers_from_olimp
+from code.parcers.olimp_parcer import get_offers_from_olimp
 import winsound
 frequency = 2500  # Set Frequency To 2500 Hertz
 duration = 500  # Set Duration To 1000 ms == 1 second
@@ -38,11 +37,11 @@ def get_forks(offers_1: list[classes.Offer], offers_2: list[classes.Offer]):
 def parse(funcs: list[Callable]):
     data_l = list()
     for f in funcs:
-        try:
-            temp_l = f()
-            data_l.append(temp_l)
-        except:
-            print(f.__name__ + ' shat himself')
+        # try:
+        temp_l = f()
+        data_l.append(temp_l)
+        # except:
+        #     print(f.__name__ + ' shat himself')
 
     forks = list()
 
@@ -76,8 +75,8 @@ def parse(funcs: list[Callable]):
             print(f.offer1.bet1.team_name, f.offer1.bet2.team_name, f.offer1.link, f.offer2.link, f.max_profit)
 
 
-funcs = [get_offers_from_betboom, get_offers_from_leon]
+funcs = [get_offers_from_betboom, get_offers_from_leon, get_offers_from_olimp, get_offers_from_positive]
 
 while True:
     parse(funcs)
-    time.sleep(3 + random.randint(0, 100)/100)
+    time.sleep(3 * 60 + random.randint(0, 100)/100 * 60)

@@ -33,5 +33,5 @@ offer2 = classes.Offer(bet3, bet4, "lol")
 
 # arbitrage
 arb = classes.Fork(offer1, offer2, t0)
-arb.get_info_profit(200, 300)
+arb.get_info_profit(200)
 print('\n')
