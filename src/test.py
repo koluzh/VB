@@ -1,5 +1,3 @@
-import time
-import requests
 import classes
 from config import *
 
@@ -35,3 +33,12 @@ offer2 = classes.Offer(bet3, bet4, "lol")
 arb = classes.Fork(offer1, offer2, t0)
 arb.get_info_profit(200)
 print('\n')
+
+import json
+
+with open('../data/bb_data.json') as f:
+    data = json.load(f)
+    print(data[[0]])
+    f.close()
+
+print(type(data))

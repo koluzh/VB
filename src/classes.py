@@ -1,6 +1,5 @@
-import time
-from code.config import *
-import winsound
+from config import *
+# import winsound
 
 
 class Bet:
@@ -147,7 +146,7 @@ class Fork:
 
         if loss < 0:
             print('no go')
-            winsound.Beep(200, 3000)
+            # winsound.Beep(200, 3000)
         else:
             print('team 1: ', self.max_profit_bet.team_name, '\nsite: ', self.max_profit_bet.link, '\nbet: ', bet_amount)
             print('coef: ', self.max_profit_bet.coef_value)

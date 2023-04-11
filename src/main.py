@@ -1,12 +1,12 @@
 import random
 from typing import Callable
 import classes
-from code.parcers.positive_parcer import get_offers_from_positive
-from code.parcers.leon_parcer import get_offers_from_leon
-from code.parcers.betboom_parcer import get_offers_from_betboom
+from parcers.positive_parcer import get_offers_from_positive
+from parcers.leon_parcer import get_offers_from_leon
+from parcers.betboom_parcer import get_offers_from_betboom
 from config import *
-from code.parcers.olimp_parcer import get_offers_from_olimp
-import winsound
+from parcers.olimp_parcer import get_offers_from_olimp
+# import winsound
 frequency = 2500  # Set Frequency To 2500 Hertz
 duration = 500  # Set Duration To 1000 ms == 1 second
 
@@ -66,9 +66,9 @@ def parse(funcs: list[Callable]):
                 print('BIG MONEY')
                 print('BIG MONEY')
                 print('BIG MONEY')
-                winsound.Beep(frequency, duration)
-                winsound.Beep(frequency, duration)
-                winsound.Beep(frequency, duration)
+                # winsound.Beep(frequency, duration)
+                # winsound.Beep(frequency, duration)
+                # winsound.Beep(frequency, duration)
         else:
             print('идет взлом казино, ожидайте......')
             print(len(forks))

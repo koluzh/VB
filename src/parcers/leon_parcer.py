@@ -1,7 +1,8 @@
 import requests
-import mmap
 import json
-from code import classes
+from src import classes
+
+from . import BASE_DIR
 
 link4 = "https://leon.ru/api-2/betline/changes/inplay?ctag=ru-RU&vtag=9c2cd386-31e1-4ce9-a140-28e9b63a9300&family=esport&hideClosed=true&flags=reg,mm2,rrc,nodup,urlv2"    #correct
 
@@ -14,7 +15,7 @@ headers = {
 def get_offers_from_leon():
     r = requests.get(link4, headers=headers)
 
-    data_dir = '../../data/leon_data.json'
+    data_dir = BASE_DIR + '/data/leon_data.json'
 
     with open(data_dir, 'w', encoding='utf-8') as output_file:
         output_file.write(r.text)

@@ -1,14 +1,10 @@
 import requests
-import mmap
-from code import classes
-import time
-import datetime as dt
-from code.config import *
-import random
-import winsound
+from src import classes
+from src.config import *
+# import winsound
 import json
 
-link4 = "https://csgopositive.me/"    #correct
+from . import BASE_DIR
 
 
 headers = {
@@ -36,15 +32,17 @@ headers = {
 
 def get_offers_from_betboom():
     # kek = get_offers_from_html('https://api-bifrost.oddin.gg/main/bifrost/query', live_events_start, end)
-    with open('../../req/bb_req.json') as f:
+    req_data_path = BASE_DIR + '/req/bb_req.json'
+    resp_data_path = BASE_DIR + '/data/bb_data.json'
+    with open(req_data_path) as f:
         data = json.load(f)
 
     r = requests.post('https://api-bifrost.oddin.gg/main/bifrost/query', headers=headers, json=data)
 
-    with open('../../data/bb_data.json', 'w', encoding=utf) as output_file:
+    with open(resp_data_path, 'w', encoding=utf) as output_file:
         output_file.write(r.text)
 
-    with open('../../data/bb_data.json', 'rb') as input_file:
+    with open(resp_data_path, 'rb') as input_file:
         bb_data = json.load(input_file)
 
     bb_data = tuple(bb_data.items())
@@ -70,7 +68,7 @@ def get_offers_from_betboom():
 
             bet1 = classes.Bet('betboom', team1, coef_1)
             bet2 = classes.Bet('betboom', team2, coef_2)
-            offer = classes.Offer(bet1, bet2, team1+' '+team2)
+            offer = classes.Offer(bet1, bet2, team1 + ' ' + team2)
 
             offers.append(offer)
         except:

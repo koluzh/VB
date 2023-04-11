@@ -1,11 +1,12 @@
 import requests
 import mmap
-from code import classes
-import time
+from src import classes
 import datetime as dt
-from code.config import *
+from src.config import *
 import random
-import winsound
+# import winsound
+
+from . import BASE_DIR
 
 link4 = "https://csgopositive.me/"    # correct
 
@@ -17,10 +18,11 @@ headers = {
 
 def get_offers_from_positive():
     r = requests.get(link4, headers=headers)
-    with open('../../data/temp.html', 'w', encoding=utf) as output_file:
+    data_path = BASE_DIR + '/data/temp.html'
+    with open(data_path, 'w', encoding=utf) as output_file:
         output_file.write(r.text)
 
-    with open('../../data/temp.html', 'rb', 0) as file, mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as b_f:
+    with open(data_path, 'rb', 0) as file, mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as b_f:
         end = b_f.find(b_end)
         b_f.seek(0)
         start = b_f.find(b_live_events_start)

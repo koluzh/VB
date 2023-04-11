@@ -1,9 +1,9 @@
 import requests
-from code import classes
-from code.config import *
-import random
+from src import classes
+from src.config import *
 import json
 
+from . import BASE_DIR
 
 headers = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
@@ -13,7 +13,7 @@ headers = {
 def get_offers_from_olimp():
     r = requests.get('https://www.olimp.bet/api/v4/0/live/sports-with-competitions-with-events', headers=headers)
 
-    data_dir = '../../data/ob_data.json'
+    data_dir = BASE_DIR + '/data/ob_data.json'
 
     with open(data_dir, 'w', encoding=utf) as output_file:
         output_file.write(r.text)
