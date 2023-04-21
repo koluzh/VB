@@ -1,5 +1,6 @@
-import classes
-from config import *
+from src.parcers import classes
+from src.parcers import *
+import sys
 
 # links
 
@@ -34,11 +35,11 @@ arb = classes.Fork(offer1, offer2, t0)
 arb.get_info_profit(200)
 print('\n')
 
-import json
+# with open('../data/bb_data.json') as f:
+#     data = json.load(f)
+#     print(data[[0]])
+#     f.close()
 
-with open('../data/bb_data.json') as f:
-    data = json.load(f)
-    print(data[[0]])
-    f.close()
+# print(type(data))
 
-print(type(data))
+sys.stdout.write('\a')

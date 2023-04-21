@@ -1,11 +1,11 @@
 import random
 from typing import Callable
-import classes
-from parcers.positive_parcer import get_offers_from_positive
+from src.parcers import classes
 from parcers.leon_parcer import get_offers_from_leon
 from parcers.betboom_parcer import get_offers_from_betboom
-from config import *
 from parcers.olimp_parcer import get_offers_from_olimp
+from src.parcers.config import *
+
 # import winsound
 frequency = 2500  # Set Frequency To 2500 Hertz
 duration = 500  # Set Duration To 1000 ms == 1 second
@@ -34,14 +34,18 @@ def get_forks(offers_1: list[classes.Offer], offers_2: list[classes.Offer]):
     return forks
 
 
-def parse(funcs: list[Callable]):
+def parse(parcer_funcs: list[Callable]):
     data_l = list()
-    for f in funcs:
-        # try:
-        temp_l = f()
-        data_l.append(temp_l)
-        # except:
-        #     print(f.__name__ + ' shat himself')
+    for f in parcer_funcs:
+        try:
+            temp_l = f()
+            if type(temp_l) == Exception:
+                print(temp_l)
+                continue
+            print(f.__name__ + ' is working ' + str(len(temp_l)) + ' events found')
+            data_l.append(temp_l)
+        except:
+            print(f.__name__ )
 
     forks = list()
 
@@ -53,7 +57,7 @@ def parse(funcs: list[Callable]):
             #     print(len(data_l[i]), len(data_l[j]))
             #     print('i think i shat myself')
             #     continue
-
+    print(str(len(forks)) + ' forks found')
 
     for f in forks:
         if f.max_profit > 0:
@@ -75,8 +79,8 @@ def parse(funcs: list[Callable]):
             print(f.offer1.bet1.team_name, f.offer1.bet2.team_name, f.offer1.link, f.offer2.link, f.max_profit)
 
 
-funcs = [get_offers_from_betboom, get_offers_from_leon, get_offers_from_olimp, get_offers_from_positive]
+funcs = [get_offers_from_betboom, get_offers_from_olimp, get_offers_from_leon]
 
 while True:
     parse(funcs)
-    time.sleep(3 * 60 + random.randint(0, 100)/100 * 60)
+    # time.sleep(3 * 60 + random.randint(0, 100)/100 * 60)

@@ -1,8 +1,8 @@
 import requests
 import json
-from src import classes
 
-from . import BASE_DIR
+from src.parcers import classes
+from src.parcers import *
 
 link4 = "https://leon.ru/api-2/betline/changes/inplay?ctag=ru-RU&vtag=9c2cd386-31e1-4ce9-a140-28e9b63a9300&family=esport&hideClosed=true&flags=reg,mm2,rrc,nodup,urlv2"    #correct
 
@@ -14,15 +14,20 @@ headers = {
 
 def get_offers_from_leon():
     r = requests.get(link4, headers=headers)
+    if __name__ == '__main__':
+        print('request status code:', r.status_code)
 
-    data_dir = BASE_DIR + '/data/leon_data.json'
+    leon_data = json.loads(r.text)
 
-    with open(data_dir, 'w', encoding='utf-8') as output_file:
-        output_file.write(r.text)
+    if leon_data['enabled'] != True:
+        return Exception('no live markets on leon')
 
-    with open(data_dir, encoding='UTF-8') as f:
-        data = json.load(f)
-        leon_data = tuple(data.items())
+    if __name__ == '__main__':
+        print(leon_data)
+        data_dir = BASE_DIR + '/data/leon_data.json'
+        with open(data_dir, 'w', encoding='utf-8') as output_file:
+            output_file.write(r.text)
+
     # print(data)
 
     offers_leon = list()
@@ -65,7 +70,12 @@ def get_offers_from_leon():
 
 
 if __name__ == '__main__':
-    get_offers_from_leon()
+    offers = get_offers_from_leon()
+    if type(offers) == Exception:
+        print(offers)
+    else:
+        for o in offers:
+            print(o.info())
 
 
 

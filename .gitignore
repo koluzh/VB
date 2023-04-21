@@ -1,0 +1,8 @@
+.idea
+.env
+/.idea/
+venv
+/data/
+/Users/koluj/Documents/GitHub/VB/.DS_Store
+.DS_Store
+*.xml

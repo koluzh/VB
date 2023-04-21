@@ -1,4 +1,5 @@
-from config import *
+from src.parcers import *
+import time
 # import winsound
 
 
@@ -12,7 +13,7 @@ class Bet:
         self.hedge = None
         self.value = None
 
-    def equals(self, other_bet: 'Bet'):
+    def equals(self, other_bet: 'Bet') -> bool:
         if self.team_name == other_bet.team_name and self.time_of_match == other_bet.time_of_match:
             return True
         else:
@@ -157,32 +158,6 @@ class Fork:
             profitability = self.max_profit/(bet_amount + hedge_amount) * 100
             print('profitability: ', profitability)
             return profitability
-
-
-# ???????
-class Query:
-    def __init__(self, key: str):
-        self.key = key
-        self.capacity = len(key)
-        self.data = list(str())
-        self.size = 0
-
-    def push_back(self, c: str):
-        if len(c) != 1:
-            Exception('incorrect push_back length')
-            return
-        if self.size < self.capacity:
-            self.data.append(c)
-            self.size = self.size + 1
-        else:
-            self.data.pop(0)
-            self.data.append(c)
-
-    def satisfied(self):
-        if self.key == ''.join(self.data):
-            return True
-        else:
-            return False
 
 
 def compare_offers(offer1: Offer, offer2: Offer):
