@@ -6,7 +6,8 @@ import time
 class Bet:
     def __init__(self, link: str, team_name: str, value: float, time: time.struct_time = None):
         self.link = link
-        self.team_name = team_name.upper().split(' ')[0]
+        temp = team_name.upper().split(' ')
+        self.team_name = temp[0] if temp[0] != "TEAM" else temp[1]
         self.coef_value = value
         self.time_of_match = time
         self.parent = None
@@ -45,6 +46,16 @@ class Offer:
         print('\n')
         self.bet1.info()
         self.bet2.info()
+
+    def get_dict(self):
+        return {
+            'bet1_coef': self.bet1.coef_value,
+            'bet2_coef': self.bet2.coef_value,
+            'team1': self.bet1.team_name,
+            'team2': self.bet2.team_name,
+            'link': self.link,
+            'start': self.time_of_match
+        }
 
 
 class Fork:
@@ -172,4 +183,13 @@ def compare_offers(offer1: Offer, offer2: Offer):
         # print(teams2)
         return True
     return False
+
+
+class NoMarkets(Exception):
+    pass
+
+
+class TimeOut(Exception):
+    pass
+
 

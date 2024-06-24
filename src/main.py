@@ -4,7 +4,8 @@ from src.parcers import classes
 from parcers.leon_parcer import get_offers_from_leon
 from parcers.betboom_parcer import get_offers_from_betboom
 from parcers.olimp_parcer import get_offers_from_olimp
-from src.parcers.config import *
+# from src.parcers.positive_parcer import get_offers_from_positive
+from src.parcers import *
 
 # import winsound
 frequency = 2500  # Set Frequency To 2500 Hertz
@@ -79,7 +80,7 @@ def parse(parcer_funcs: list[Callable]):
             print(f.offer1.bet1.team_name, f.offer1.bet2.team_name, f.offer1.link, f.offer2.link, f.max_profit)
 
 
-funcs = [get_offers_from_betboom, get_offers_from_olimp, get_offers_from_leon]
+funcs = [get_offers_from_betboom, get_offers_from_olimp, get_offers_from_leon, ]
 
 while True:
     parse(funcs)

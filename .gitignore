@@ -6,3 +6,9 @@ venv
 /Users/koluj/Documents/GitHub/VB/.DS_Store
 .DS_Store
 *.xml
+src/__pycache__/__init__.cpython-310.pyc
+*.pyc
+*.xml
+*.iml
+*.iml
+*.xml

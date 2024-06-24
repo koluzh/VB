@@ -1,7 +1,5 @@
 import requests
 import src.parcers.classes as classes
-from src.parcers import *
-# import winsound
 import json
 
 
@@ -79,35 +77,42 @@ def get_offers_from_betboom():
     }
     r = requests.post('https://api-bifrost.oddin.gg/main/bifrost/query', headers=headers, json=req_data)
 
+    if r.status_code == 429:
+        raise classes.TimeOut()
+
     bb_data = json.loads(r.text)
-    print(bb_data)
+    # print(bb_data)
 
     kek = bb_data['data']['allMatch']['edges']
 
     if len(kek) == 0:
-        return Exception()
+        raise classes.NoMarkets()
 
     offers = list()
 
     for bet_i in kek:
-        node = bet_i['node']
-        team1 = node['teams'][0]['team']['name']
-        team2 = node['teams'][1]['team']['name']
-        markets = node['mainMarketGroups'][0]['markets']
-        if len(markets[0]['outcomes']) != 2:
-            continue
-        coef_1 = markets[0]['outcomes'][0]['odds']
-        state_1 = markets[0]['outcomes'][0]['state']
-        coef_2 = markets[0]['outcomes'][1]['odds']
-        state_2 = markets[0]['outcomes'][1]['state']
-        if state_2 != 'OPEN' or state_1 != 'OPEN':
-            continue
+        try:
+            node = bet_i['node']
+            team1 = node['teams'][0]['team']['name']
+            team2 = node['teams'][1]['team']['name']
+            markets = node['mainMarketGroups'][0]['markets']
+            if len(markets[0]['outcomes']) != 2:
+                continue
+            coef_1 = markets[0]['outcomes'][0]['odds']
+            state_1 = markets[0]['outcomes'][0]['state']
+            coef_2 = markets[0]['outcomes'][1]['odds']
+            state_2 = markets[0]['outcomes'][1]['state']
+            if state_2 != 'OPEN' or state_1 != 'OPEN':
+                continue
 
-        bet1 = classes.Bet('betboom', team1, coef_1)
-        bet2 = classes.Bet('betboom', team2, coef_2)
-        offer = classes.Offer(bet1, bet2, team1 + ' ' + team2)
+            bet1 = classes.Bet('betboom', team1, coef_1)
+            bet2 = classes.Bet('betboom', team2, coef_2)
+            offer = classes.Offer(bet1, bet2, team1 + ' ' + team2)
 
-        offers.append(offer)
+            offers.append(offer)
+        except Exception as e:
+            print(e)
+            continue
 
     return offers
 
