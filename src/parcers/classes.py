@@ -7,7 +7,7 @@ class Bet:
     def __init__(self, link: str, team_name: str, value: float, time: time.struct_time = None):
         self.link = link
         temp = team_name.upper().split(' ')
-        self.team_name = temp[0] if temp[0] != "TEAM" else temp[1]
+        self.team_name = temp[0] if temp[0] != "TEAM" and temp[0] != "EINTRACHT" else temp[1]
         self.coef_value = value
         self.time_of_match = time
         self.parent = None

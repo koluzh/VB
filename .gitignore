@@ -12,3 +12,5 @@ src/__pycache__/__init__.cpython-310.pyc
 *.iml
 *.iml
 *.xml
+.idea/VB.iml
+.idea/misc.xml

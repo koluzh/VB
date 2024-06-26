@@ -47,9 +47,13 @@ def get_offers_from_leon():
                     if __name__ == "__main__":
                         print(name1, name2, 'kekekek')
                     continue
+                runners = data['markets'][0]['runners']
+                # price1 = data['markets'][0]['runners'][0]['price']
+                # price2 = data['markets'][0]['runners'][2]['price']
+                price = dict()
+                for r in runners:
+                    price[r['name']] = r['price']
 
-                price1 = data['markets'][0]['runners'][0]['price']
-                price2 = data['markets'][0]['runners'][1]['price']
                 hw2_1 = data['markets'][0]['runners'][0]['tags'][0]
                 hw2_2 = data['markets'][0]['runners'][1]['tags'][0]
 
@@ -63,8 +67,8 @@ def get_offers_from_leon():
                 # print(data, '\n', hw)
                 if hw1_1 != hw2_1:
                     name1, name2 = name2, name1
-                bet1 = classes.Bet('leon', name1, price1)
-                bet2 = classes.Bet('leon', name2, price2)
+                bet1 = classes.Bet('leon', name1, price['1'])
+                bet2 = classes.Bet('leon', name2, price['2'])
                 temp_offer = classes.Offer(bet1, bet2, event_name)
                 offers_leon.append(temp_offer)
         except Exception as e:
@@ -80,6 +84,7 @@ if __name__ == '__main__':
     else:
         for o in offers:
             print(o.info())
+    print(len(offers))
 
 
 

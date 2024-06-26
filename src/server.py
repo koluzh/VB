@@ -14,5 +14,5 @@ async def websocket_endpoint(websocket: WebSocket):
         data = {'offers': parser.get_data()}
         # client_sent = await websocket.receive_text()
         # print(client_sent)
-        print("data sent")
+        print(f"data sent {len(data['offers'])}")
         await websocket.send_json(data)
